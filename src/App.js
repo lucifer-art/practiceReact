@@ -35,12 +35,21 @@ class App extends Component {
     })
   }
   render() {
+    const style = {
+      backgroundColor: '#000',
+      font:'inherit',
+      border: '1px solid #000',
+      padding:'8px',
+      borderRadius: '4px',
+      color:'#fff',
+      cursor:'pointer'
+    }
     return (
       <div className="App">
         <h1>
           Hi,I am React App.
           </h1>
-        <button onClick={() => this.changeNameHandler('Shiv!!!!')}>Switch Name</button>
+        <button style={style} onClick={() => this.changeNameHandler('Shiv!!!!')}>Switch Name</button>
         <p>This is to check</p>
         {
           this.state.persons.map(person => {
