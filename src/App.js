@@ -68,10 +68,18 @@ class App extends Component {
     if(this.state.showPersons){
       person = (
         this.state.persons.map((person,index) => {
-            return <Person key={person.id} changed={(event) => this.nameChangedHandler(event,person.id)} changeNameHandler={this.changeNameHandler.bind(this, 'Shiv123')} name={person.name} age={person.age}>My hobbies are playing chess.</Person>
+            return <Person key={person.id} changed={(event) => this.nameChangedHandler(event,person.id)} deletePersonHandler={this.deletePersonHandler} changeNameHandler={this.changeNameHandler.bind(this, 'Shiv123')} name={person.name} age={person.age}>My hobbies are playing chess.</Person>
         })
       );
       style.backgroundColor= 'red';
+    }
+
+    const classes = [];
+    if(this.state.persons.length === 2) {
+      classes.push('red');
+    } if(this.state.persons.length <= 1){
+      classes.push('red');
+      classes.push('bold');
     }
     
     return (
@@ -81,7 +89,7 @@ class App extends Component {
           </h1>
         <button style={style} onClick={() => this.changeNameHandler('Shiv!!!!')}>Switch Name</button><br /><br />
         <button style={style} onClick={this.toggleNameHandler}>Toggle Name</button>
-        <p>This is to check</p>
+        <p className={classes.join(' ')}>This is to check</p>
         {person}
         {/* <Person name="Shivang" age="23">My hobbies are playing chess.</Person> */}
       </div>
