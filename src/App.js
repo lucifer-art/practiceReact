@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
+import Radium,{StyleRoot} from 'radium';
 
 class App extends Component {
   constructor(props) {
@@ -62,7 +63,11 @@ class App extends Component {
       padding:'8px',
       borderRadius: '4px',
       color:'#fff',
-      cursor:'pointer'
+      cursor:'pointer',
+      ':hover':{
+        backgroundColor:'lightGreen',
+        color:'#000'
+      }
     }
     let person = null;
     if(this.state.showPersons){
@@ -72,6 +77,10 @@ class App extends Component {
         })
       );
       style.backgroundColor= 'red';
+      style[':hover'] = {
+        backgroundColor:'salmon',
+        color:'#000'
+      }
     }
 
     const classes = [];
@@ -83,23 +92,26 @@ class App extends Component {
     }
     
     return (
-      <div className="App">
-        <h1>
-          Hi,I am React App.
+      <StyleRoot>
+        <div className="App">
+          <h1>
+            Hi,I am React App.
           </h1>
-        <button style={style} onClick={() => this.changeNameHandler('Shiv!!!!')}>Switch Name</button><br /><br />
-        <button style={style} onClick={this.toggleNameHandler}>Toggle Name</button>
-        <p className={classes.join(' ')}>This is to check</p>
-        {person}
-        {/* <Person name="Shivang" age="23">My hobbies are playing chess.</Person> */}
-      </div>
+          <button onClick={() => this.changeNameHandler('Shiv!!!!')}>Switch Name</button><br /><br />
+          <button style={style} onClick={this.toggleNameHandler}>Toggle Name</button>
+          <p className={classes.join(' ')}>This is to check</p>
+          {person}
+          {/* <Person name="Shivang" age="23">My hobbies are playing chess.</Person> */}
+        </div>
+      </StyleRoot>
+      
       // React.createElement('div',{className:"App"},
       //   React.createElement('h1',null,'Hi, I am React App')
     )
   }
 }
 
-export default App;
+export default Radium(App);
 
 // const [personState, setPersonState]= useState({
   //     persons:[
