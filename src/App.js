@@ -11,7 +11,7 @@ class App extends Component {
         { id: 2, name: 'Shivang1', age: 24 },
         { id: 3, name: 'Shivang2', age: 25 },
       ],
-      showPersons:true
+      showPersons:false
     }
   }
 
@@ -71,6 +71,7 @@ class App extends Component {
             return <Person key={person.id} changed={(event) => this.nameChangedHandler(event,person.id)} changeNameHandler={this.changeNameHandler.bind(this, 'Shiv123')} name={person.name} age={person.age}>My hobbies are playing chess.</Person>
         })
       );
+      style.backgroundColor= 'red';
     }
     
     return (
@@ -79,7 +80,7 @@ class App extends Component {
           Hi,I am React App.
           </h1>
         <button style={style} onClick={() => this.changeNameHandler('Shiv!!!!')}>Switch Name</button><br /><br />
-        {/* <button style={style} onClick={this.toggleNameHandler}>Toggle Name</button> */}
+        <button style={style} onClick={this.toggleNameHandler}>Toggle Name</button>
         <p>This is to check</p>
         {person}
         {/* <Person name="Shivang" age="23">My hobbies are playing chess.</Person> */}
