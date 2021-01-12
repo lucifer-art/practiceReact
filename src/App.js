@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
+import Radium,{StyleRoot} from 'radium';
 
 class App extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class App extends Component {
         { id: 2, name: 'Shivang1', age: 24 },
         { id: 3, name: 'Shivang2', age: 25 },
       ],
-      showPersons:true
+      showPersons:false
     }
   }
 
@@ -62,35 +63,55 @@ class App extends Component {
       padding:'8px',
       borderRadius: '4px',
       color:'#fff',
-      cursor:'pointer'
+      cursor:'pointer',
+      ':hover':{
+        backgroundColor:'lightGreen',
+        color:'#000'
+      }
     }
     let person = null;
     if(this.state.showPersons){
       person = (
         this.state.persons.map((person,index) => {
-            return <Person key={person.id} changed={(event) => this.nameChangedHandler(event,person.id)} changeNameHandler={this.changeNameHandler.bind(this, 'Shiv123')} name={person.name} age={person.age}>My hobbies are playing chess.</Person>
+            return <Person key={person.id} changed={(event) => this.nameChangedHandler(event,person.id)} deletePersonHandler={this.deletePersonHandler} changeNameHandler={this.changeNameHandler.bind(this, 'Shiv123')} name={person.name} age={person.age}>My hobbies are playing chess.</Person>
         })
       );
+      style.backgroundColor= 'red';
+      style[':hover'] = {
+        backgroundColor:'salmon',
+        color:'#000'
+      }
+    }
+
+    const classes = [];
+    if(this.state.persons.length === 2) {
+      classes.push('red');
+    } if(this.state.persons.length <= 1){
+      classes.push('red');
+      classes.push('bold');
     }
     
     return (
-      <div className="App">
-        <h1>
-          Hi,I am React App.
+      <StyleRoot>
+        <div className="App">
+          <h1>
+            Hi,I am React App.
           </h1>
-        <button style={style} onClick={() => this.changeNameHandler('Shiv!!!!')}>Switch Name</button><br /><br />
-        {/* <button style={style} onClick={this.toggleNameHandler}>Toggle Name</button> */}
-        <p>This is to check</p>
-        {person}
-        {/* <Person name="Shivang" age="23">My hobbies are playing chess.</Person> */}
-      </div>
+          <button onClick={() => this.changeNameHandler('Shiv!!!!')}>Switch Name</button><br /><br />
+          <button style={style} onClick={this.toggleNameHandler}>Toggle Name</button>
+          <p className={classes.join(' ')}>This is to check</p>
+          {person}
+          {/* <Person name="Shivang" age="23">My hobbies are playing chess.</Person> */}
+        </div>
+      </StyleRoot>
+      
       // React.createElement('div',{className:"App"},
       //   React.createElement('h1',null,'Hi, I am React App')
     )
   }
 }
 
-export default App;
+export default Radium(App);
 
 // const [personState, setPersonState]= useState({
   //     persons:[
