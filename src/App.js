@@ -10,7 +10,8 @@ class App extends Component {
         { id: 1, name: 'Shivang', age: 23 },
         { id: 2, name: 'Shivang1', age: 24 },
         { id: 3, name: 'Shivang2', age: 25 },
-      ]
+      ],
+      showPersons:false
     }
   }
 
@@ -31,8 +32,12 @@ class App extends Component {
         { id: 1, name: "Shivang Kumar", age: 23 },
         { id: 2, name: event.target.value, age: 24 },
         { id: 3, name: 'Shivang2', age: 29 },
-      ],
+      ]
     })
+  }
+  toggleNameHandler = ()=>{
+    let showDefault = this.state.showPersons;
+    this.setState({showPersons: !showDefault});
   }
   render() {
     const style = {
@@ -49,17 +54,18 @@ class App extends Component {
         <h1>
           Hi,I am React App.
           </h1>
-        <button style={style} onClick={() => this.changeNameHandler('Shiv!!!!')}>Switch Name</button>
+        <button style={style} onClick={() => this.changeNameHandler('Shiv!!!!')}>Switch Name</button><br /><br />
+        <button style={style} onClick={this.toggleNameHandler}>Toggle Name</button>
         <p>This is to check</p>
-        {
+        {this.state.showPersons ? 
           this.state.persons.map(person => {
-            if (person.id == 2) {
+            if (person.id === 2) {
               return <Person key={person.id} changed={this.nameChangedHandler} changeNameHandler={this.changeNameHandler.bind(this, 'Shiv123')} name={person.name} age={person.age}>My hobbies are playing chess.</Person>
             } else {
               return <Person key={person.id} name={person.name} age={person.age}>My hobbies are playing chess.</Person>
             }
 
-          })
+          }) : <p>Sorry, there is no Person</p>
         }
         {/* <Person name="Shivang" age="23">My hobbies are playing chess.</Person> */}
       </div>
