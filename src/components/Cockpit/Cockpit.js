@@ -26,7 +26,7 @@ const cockpit = (props) => {
     return (
         <div>
             <h1>
-                Hi,I am React App.
+                {props.title}
           </h1>
             <button onClick={() => props.changed('Shiv!!!!')}>Switch Name</button><br /><br />
             <button style={style} onClick={props.clicked}>Toggle Name</button>

@@ -8,6 +8,7 @@ import Radium,{StyleRoot} from 'radium';
 class App extends Component {
   constructor(props) {
     super(props);
+    console.log("{App.js} constructor");
     this.state = {
       persons: [
         { id: 1, name: 'Shivang', age: 23 },
@@ -16,6 +17,14 @@ class App extends Component {
       ],
       showPersons:false
     }
+  }
+
+  static getDerivedStateFromProps(props,state){
+    console.log("{App.js} getDerivedStateProps",props)
+    return state;
+  }
+  componentDidMount(){
+    console.log("{App.js} componentDidMount");
   }
 
 
@@ -59,6 +68,7 @@ class App extends Component {
     this.setState({persons:person})
   }
   render() {
+    console.log("{App.js} render")
     const style = {
       backgroundColor: '#000',
       font:'inherit',
@@ -86,7 +96,7 @@ class App extends Component {
     return (
       <StyleRoot>
         <div className="App">
-          <Cockpit showPersons={this.state.showPersons} persons={this.state.persons} changed={this.changeNameHandler} clicked={this.toggleNameHandler} />
+          <Cockpit title={this.props.title} showPersons={this.state.showPersons} persons={this.state.persons} changed={this.changeNameHandler} clicked={this.toggleNameHandler} />
           {person}
           {/* <Person name="Shivang" age="23">My hobbies are playing chess.</Person> */}
         </div>
