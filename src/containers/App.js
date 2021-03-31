@@ -4,6 +4,7 @@ import './App.css';
 import Persons from '../components/Persons/Persons';
 import Cockpit from '../components/Cockpit/Cockpit';
 import Radium,{StyleRoot} from 'radium';
+import AuthContext from '../context/auth-context';
 
 class App extends Component {
   constructor(props) {
@@ -44,6 +45,7 @@ class App extends Component {
         { id: 2, name: 'Shivang1', age: 24 },
         { id: 3, name: 'Shivang2', age: 29 },
       ],
+      authenticated:false
     })
   }
 
@@ -70,6 +72,11 @@ class App extends Component {
     let showDefault = this.state.showPersons;
     this.setState({showPersons: !showDefault});
   }
+
+  loginHandler = ()=>{
+    this.setState({authenticated:true});
+  }
+
   deletePersonHandler = (index)=>{
     console.log(index);
     let person = this.state.persons.slice();
@@ -94,7 +101,7 @@ class App extends Component {
     let person = null;
     
     if(this.state.showPersons){
-      person = <Persons persons={this.state.persons} clicked={this.deletePersonHandler} changed={this.nameChangedHandler} />
+      person = <Persons persons={this.state.persons} clicked={this.deletePersonHandler} changed={this.nameChangedHandler} isAuthenticated={this.state.authenticated} />
       style.backgroundColor= 'red';
       style[':hover'] = {
         backgroundColor:'salmon',
@@ -104,11 +111,14 @@ class App extends Component {
     
     return (
       <StyleRoot>
-        <div className="App">
-          <Cockpit title={this.props.title} showPersons={this.state.showPersons} persons={this.state.persons} changed={this.changeNameHandler} clicked={this.toggleNameHandler} />
-          {person}
-          {/* <Person name="Shivang" age="23">My hobbies are playing chess.</Person> */}
-        </div>
+        <AuthContext.Provider value={{authenticated:this.state.authenticated,
+    login:this.loginHandler}}>
+          <div className="App">
+            <Cockpit title={this.props.title} showPersons={this.state.showPersons} persons={this.state.persons} changed={this.changeNameHandler} clicked={this.toggleNameHandler} />
+            {person}
+            {/* <Person name="Shivang" age="23">My hobbies are playing chess.</Person> */}
+          </div>
+        </AuthContext.Provider>
       </StyleRoot>
       
       // React.createElement('div',{className:"App"},

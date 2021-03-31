@@ -1,13 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useRef,useContext } from 'react';
 import './Cockpit.css';
+import AuthContext from '../../context/auth-context';
 
 const Cockpit = (props) => {
+
+  const buttonClickRef = useRef(null);
+  const authContext = useContext(AuthContext);
+  console.log(authContext.authenticated);
+
   useEffect(() => {
     console.log("{Cockpit.js} useEffect");
-    setTimeout(()=>{
-      alert("data saved");
-    },1000)
-  },[props.persons])
+    // setTimeout(()=>{
+    //   alert("data saved");
+    // },1000)
+    buttonClickRef.current.click();
+  },[])
+
   const style = {
     backgroundColor: '#000',
     font: 'inherit',
@@ -21,6 +29,7 @@ const Cockpit = (props) => {
       color: '#000'
     }
   }
+
   const classes = [];
   if (props.persons.length === 2) {
     classes.push('red');
@@ -35,7 +44,10 @@ const Cockpit = (props) => {
         {props.title}
       </h1>
       <button onClick={() => props.changed('Shiv!!!!')}>Switch Name</button><br /><br />
-      <button style={style} onClick={props.clicked}>Toggle Name</button>
+      <button ref={buttonClickRef} style={style} onClick={props.clicked}>Toggle Name</button>
+      {/* <AuthContext.Consumer> */}
+        <button onClick={authContext.login} style={style}>Login</button>
+      {/* </AuthContext.Consumer> */}
       <p className={classes.join(' ')}>This is to check</p>
     </div>
   )
